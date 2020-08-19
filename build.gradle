@@ -21,6 +21,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile(group: 'org.postgresql', name: 'postgresql', version: '42.0.0')
+
 }
 
 test {
