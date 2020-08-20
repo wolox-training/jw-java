@@ -65,6 +65,8 @@ public class User {
     }
 
     public void setName(String name) {
+        Preconditions.checkArgument(name != null && !name.isEmpty()
+                , Constants.getValidationMessage("name"));
         this.name = name;
     }
 
@@ -73,6 +75,8 @@ public class User {
     }
 
     public void setBirthdate(LocalDate birthdate) {
+        Preconditions.checkNotNull(birthdate
+                , "Birthdate cannot be null");
         this.birthdate = birthdate;
     }
 
@@ -81,9 +85,16 @@ public class User {
     }
 
     public void setBooks(List<Book> books) {
+        Preconditions.checkNotNull(books
+                , "Must add at least one book");
         this.books = books;
     }
 
+    /**
+     * Add book to user
+     * @param book
+     * @throws BookAlreadyOwnedException
+     */
     public void addBook(Book book){
         if(!books.contains(book)){
             books.add(book);
@@ -92,6 +103,10 @@ public class User {
         }
     }
 
+    /**
+     * Remove book from user
+     * @param book
+     */
     public void removeBook(Book book){
         books.remove(book);
     }
