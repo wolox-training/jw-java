@@ -30,7 +30,7 @@ public class User {
     private String username;
 
     @NotNull
-    private String password;
+    private String name;
 
     @NotNull
     private LocalDate birthdate;
@@ -60,12 +60,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDate getBirthdate() {
