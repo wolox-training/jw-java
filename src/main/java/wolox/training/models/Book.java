@@ -36,11 +36,7 @@ public class Book {
     @NotNull
     private String year;
 
-<<<<<<< HEAD
-    @Column(nullable = false)
-=======
     @NotNull
->>>>>>> create-book-repository
     private int pages;
 
     @NotNull
@@ -51,14 +47,6 @@ public class Book {
 
     public long getId() {
         return id;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public String getGenre() {
