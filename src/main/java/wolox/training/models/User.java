@@ -1,5 +1,6 @@
 package wolox.training.models;
 
+import com.google.common.base.Preconditions;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import wolox.training.exceptions.BookAlreadyOwnedException;
+import wolox.training.utils.Constants;
 
 @Entity
 @Table(name = "users")
@@ -53,6 +55,8 @@ public class User {
     }
 
     public void setUsername(String username) {
+        Preconditions.checkArgument(username != null && !username.isEmpty()
+                , Constants.getValidationMessage("username"));
         this.username = username;
     }
 

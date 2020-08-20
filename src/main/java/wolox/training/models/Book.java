@@ -1,5 +1,6 @@
 package wolox.training.models;
 
+import com.google.common.base.Preconditions;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+import wolox.training.utils.Constants;
 
 @Entity
 public class Book {
@@ -57,6 +59,8 @@ public class Book {
     }
 
     public void setGenre(String genre) {
+        Preconditions.checkArgument(genre != null && !genre.isEmpty()
+                , Constants.getValidationMessage("genre"));
         this.genre = genre;
     }
 
@@ -65,6 +69,8 @@ public class Book {
     }
 
     public void setAuthor(String author) {
+        Preconditions.checkArgument(author != null && !author.isEmpty()
+                , Constants.getValidationMessage("author"));
         this.author = author;
     }
 
@@ -73,6 +79,8 @@ public class Book {
     }
 
     public void setImage(String image) {
+        Preconditions.checkArgument(image != null && !image.isEmpty()
+                , Constants.getValidationMessage("image"));
         this.image = image;
     }
 
@@ -81,6 +89,8 @@ public class Book {
     }
 
     public void setTitle(String title) {
+        Preconditions.checkArgument(title != null && !title.isEmpty()
+                , Constants.getValidationMessage("title"));
         this.title = title;
     }
 
@@ -89,6 +99,8 @@ public class Book {
     }
 
     public void setSubtitle(String subtitle) {
+        Preconditions.checkArgument(subtitle != null && !subtitle.isEmpty()
+                , Constants.getValidationMessage("subtitle"));
         this.subtitle = subtitle;
     }
 
@@ -97,6 +109,8 @@ public class Book {
     }
 
     public void setPublisher(String publisher) {
+        Preconditions.checkArgument(publisher != null && !publisher.isEmpty()
+                , Constants.getValidationMessage("publisher"));
         this.publisher = publisher;
     }
 
@@ -105,6 +119,8 @@ public class Book {
     }
 
     public void setYear(String year) {
+        Preconditions.checkArgument(year != null && !year.isEmpty()
+                , Constants.getValidationMessage("year"));
         this.year = year;
     }
 
@@ -113,6 +129,8 @@ public class Book {
     }
 
     public void setPages(int pages) {
+        Preconditions.checkArgument(pages > 0
+                , "The number of pages must be greather than 0");
         this.pages = pages;
     }
 
@@ -121,6 +139,8 @@ public class Book {
     }
 
     public void setIsbn(String isbn) {
+        Preconditions.checkArgument(isbn != null && !isbn.isEmpty()
+                , Constants.getValidationMessage("isbn"));
         this.isbn = isbn;
     }
 
