@@ -1,9 +1,11 @@
 package wolox.training.models;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -39,6 +41,9 @@ public class Book {
 
     @NotNull
     private String isbn;
+
+    @ManyToMany(mappedBy = "books")
+    private List<User> users;
 
     public Book() {
     }
@@ -119,19 +124,7 @@ public class Book {
         this.isbn = isbn;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-            "id=" + id +
-            ", genre='" + genre + '\'' +
-            ", author='" + author + '\'' +
-            ", image='" + image + '\'' +
-            ", title='" + title + '\'' +
-            ", subtitle='" + subtitle + '\'' +
-            ", publisher='" + publisher + '\'' +
-            ", year='" + year + '\'' +
-            ", pages=" + pages +
-            ", isbn='" + isbn + '\'' +
-            '}';
+    public List<User> getUsers() {
+        return users;
     }
 }
