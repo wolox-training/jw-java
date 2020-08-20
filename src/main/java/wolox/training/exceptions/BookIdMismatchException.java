@@ -1,9 +1,11 @@
 package wolox.training.exceptions;
 
+import wolox.training.utils.Constants;
+
 public class BookIdMismatchException extends RuntimeException{
 
     public  BookIdMismatchException(){
-        super("The id value of book is not the same of the parameter");
+        super(Constants.MESSSAGE_BOOK_ID_MISSMATCH);
 
     }
 }
