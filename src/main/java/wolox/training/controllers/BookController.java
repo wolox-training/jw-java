@@ -35,8 +35,7 @@ public class BookController {
     @GetMapping("/{id}")
     public Book findOne(@PathVariable Long id) {
         return bookRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format(Constants.FORMAT_MESSSAGE_BOOK_NOT_FOUND,id)));
+                .orElseThrow(() -> new BookNotFoundException(id));
     }
 
     @PostMapping
