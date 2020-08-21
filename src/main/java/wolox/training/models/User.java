@@ -35,9 +35,6 @@ public class User {
 
     @NotNull
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "book_user",
-    joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private List<Book> books;
 
     public User() {
