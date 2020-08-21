@@ -52,7 +52,7 @@ public class UserController {
     public void delete(@PathVariable Long id) {
         userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format(Constants.FORMAT_MESSSAGE_BOOK_NOT_FOUND,id)));
+                        String.format(Constants.FORMAT_MESSSAGE_USER_NOT_FOUND,id)));
         userRepository.deleteById(id);
     }
 
@@ -63,7 +63,7 @@ public class UserController {
         }
         userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format(Constants.FORMAT_MESSSAGE_BOOK_NOT_FOUND,id)));
+                        String.format(Constants.FORMAT_MESSSAGE_USER_NOT_FOUND,id)));
         return userRepository.save(user);
     }
 
