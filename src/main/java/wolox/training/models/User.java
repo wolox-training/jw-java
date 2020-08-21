@@ -36,7 +36,7 @@ public class User {
     private LocalDate birthdate;
 
     @NotNull
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "book_user",
     joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))

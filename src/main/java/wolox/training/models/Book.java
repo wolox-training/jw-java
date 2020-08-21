@@ -1,5 +1,6 @@
 package wolox.training.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Preconditions;
 import java.util.List;
 import javax.persistence.Entity;
@@ -45,6 +46,7 @@ public class Book {
     private String isbn;
 
     @ManyToMany(mappedBy = "books")
+    @JsonIgnore
     private List<User> users;
 
     public Book() {

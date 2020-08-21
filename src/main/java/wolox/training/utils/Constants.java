@@ -14,7 +14,7 @@ public class Constants {
 
 
     public static String getValidationMessage(String field){
-        return String.format("The field %s cannot be null or empty");
+        return String.format("The field %s cannot be null or empty", field);
     }
 
 

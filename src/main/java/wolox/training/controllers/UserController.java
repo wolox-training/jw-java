@@ -22,7 +22,7 @@ import wolox.training.repositories.UserRepository;
 import wolox.training.utils.Constants;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
