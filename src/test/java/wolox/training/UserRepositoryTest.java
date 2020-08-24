@@ -12,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import wolox.training.exceptions.BookAlreadyOwnedException;
+import wolox.training.factories.BookFactory;
+import wolox.training.factories.UserFactory;
 import wolox.training.models.Book;
 import wolox.training.models.User;
 import wolox.training.repositories.BookRepository;
@@ -35,28 +37,13 @@ public class UserRepositoryTest {
 
     @Before
     public void setUp(){
-        testBook = new Book();
-        testBook.setGenre("Fantasy");
-        testBook.setAuthor("Juan Camilo");
-        testBook.setImage("image.jpg");
-        testBook.setTitle("Libro test");
-        testBook.setSubtitle("test");
-        testBook.setPublisher("Tesstpublisher");
-        testBook.setPages(100);
-        testBook.setYear("2020");
-        testBook.setIsbn("12345678");
+        testBook = BookFactory.build();
         bookRepository.save(testBook);
 
-        userTest = new User();
-        userTest.setUsername("test1");
-        userTest.setName("TestUno");
-        userTest.setBirthdate(LocalDate.of(1953, Month.JUNE, 27));
+        userTest = UserFactory.build();
         userTest.addBook(testBook);
 
-        userSaveTest = new User();
-        userSaveTest.setUsername("test2");
-        userSaveTest.setName("TestDos");
-        userSaveTest.setBirthdate(LocalDate.of(1921, Month.JUNE, 17));
+        userSaveTest = UserFactory.build();
         userSaveTest.addBook(testBook);
         userRepository.save(userSaveTest);
 

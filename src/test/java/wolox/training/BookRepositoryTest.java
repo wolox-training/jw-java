@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import wolox.training.factories.BookFactory;
 import wolox.training.models.Book;
 import wolox.training.repositories.BookRepository;
 
@@ -28,27 +29,8 @@ public class BookRepositoryTest {
 
     @Before
     public void setUp(){
-        testBook = new Book();
-        testBook.setGenre("Fantasy");
-        testBook.setAuthor("Juan Camilo");
-        testBook.setImage("image.jpg");
-        testBook.setTitle("Libro test");
-        testBook.setSubtitle("test");
-        testBook.setPublisher("Tesstpublisher");
-        testBook.setPages(100);
-        testBook.setYear("2020");
-        testBook.setIsbn("12345678");
-
-        testSaveBook = new Book();
-        testSaveBook.setGenre("Action");
-        testSaveBook.setAuthor("Nauj Olimac");
-        testSaveBook.setImage("image1.jpg");
-        testSaveBook.setTitle("Test Save");
-        testSaveBook.setSubtitle("test2");
-        testSaveBook.setPublisher("PubCol");
-        testSaveBook.setPages(99);
-        testSaveBook.setYear("1980");
-        testSaveBook.setIsbn("0000000001");
+        testBook = BookFactory.build();
+        testSaveBook = BookFactory.build();
         testSaveBook = bookRepository.save(testSaveBook);
     }
 
