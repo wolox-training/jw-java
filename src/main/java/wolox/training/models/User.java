@@ -1,6 +1,7 @@
 package wolox.training.models;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,8 +53,8 @@ public class User {
     }
 
     public void setUsername(String username) {
-        Preconditions.checkArgument(username != null && !username.isEmpty()
-                , Constants.getValidationMessage("username"));
+        Preconditions.checkArgument(Strings.isNullOrEmpty(username)
+                , Constants.getNullOrEmptyValidationMessage("username"));
         this.username = username;
     }
 
@@ -62,8 +63,8 @@ public class User {
     }
 
     public void setName(String name) {
-        Preconditions.checkArgument(name != null && !name.isEmpty()
-                , Constants.getValidationMessage("name"));
+        Preconditions.checkArgument(Strings.isNullOrEmpty(name)
+                , Constants.getNullOrEmptyValidationMessage("name"));
         this.name = name;
     }
 
@@ -72,8 +73,8 @@ public class User {
     }
 
     public void setBirthdate(LocalDate birthdate) {
-        Preconditions.checkArgument(birthdate != null
-                , "Birthdate cannot be null");
+        Preconditions.checkNotNull(birthdate
+                , Constants.getNotNullalidationMessage("bitrhdate"));
         this.birthdate = birthdate;
     }
 
@@ -83,7 +84,7 @@ public class User {
 
     public void setBooks(List<Book> books) {
         Preconditions.checkNotNull(books
-                , "Must add at least one book");
+                , Constants.getEmptyListValidationMessage("books"));
         this.books = books;
     }
 
