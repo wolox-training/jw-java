@@ -13,9 +13,22 @@ public class Constants {
     public static String MESSSAGE_USER_ID_MISSMATCH = "The id value of user is not the same of the parameter";
 
 
-    public static String getValidationMessage(String field){
-        return String.format("The field %s cannot be null or empty");
+    public static String getNullOrEmptyValidationMessage(String field){
+        return String.format("The field %s cannot be null or empty",field);
     }
+
+    public static String getNumberValidationMessage(String field){
+        return String.format("The number of %s must be greather than 0",field);
+    }
+
+    public static String getNotNullalidationMessage(String field){
+        return String.format("The field %s cannot be null",field);
+    }
+
+    public static String getEmptyListValidationMessage(String field){
+        return String.format("The list of %s must have at least one item",field);
+    }
+
 
 
 }

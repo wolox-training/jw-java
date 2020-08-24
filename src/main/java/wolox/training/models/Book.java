@@ -1,6 +1,7 @@
 package wolox.training.models;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -59,8 +60,8 @@ public class Book {
     }
 
     public void setGenre(String genre) {
-        Preconditions.checkArgument(genre != null && !genre.isEmpty()
-                , Constants.getValidationMessage("genre"));
+        Preconditions.checkArgument(Strings.isNullOrEmpty(genre)
+                , Constants.getNullOrEmptyValidationMessage("genre"));
         this.genre = genre;
     }
 
@@ -69,8 +70,8 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-        Preconditions.checkArgument(author != null && !author.isEmpty()
-                , Constants.getValidationMessage("author"));
+        Preconditions.checkArgument(Strings.isNullOrEmpty(author)
+                , Constants.getNullOrEmptyValidationMessage("author"));
         this.author = author;
     }
 
@@ -79,8 +80,8 @@ public class Book {
     }
 
     public void setImage(String image) {
-        Preconditions.checkArgument(image != null && !image.isEmpty()
-                , Constants.getValidationMessage("image"));
+        Preconditions.checkArgument(Strings.isNullOrEmpty(image)
+                , Constants.getNullOrEmptyValidationMessage("image"));
         this.image = image;
     }
 
@@ -89,8 +90,8 @@ public class Book {
     }
 
     public void setTitle(String title) {
-        Preconditions.checkArgument(title != null && !title.isEmpty()
-                , Constants.getValidationMessage("title"));
+        Preconditions.checkArgument(Strings.isNullOrEmpty(title)
+                , Constants.getNullOrEmptyValidationMessage("title"));
         this.title = title;
     }
 
@@ -99,8 +100,8 @@ public class Book {
     }
 
     public void setSubtitle(String subtitle) {
-        Preconditions.checkArgument(subtitle != null && !subtitle.isEmpty()
-                , Constants.getValidationMessage("subtitle"));
+        Preconditions.checkArgument(Strings.isNullOrEmpty(subtitle)
+                , Constants.getNullOrEmptyValidationMessage("subtitle"));
         this.subtitle = subtitle;
     }
 
@@ -109,8 +110,8 @@ public class Book {
     }
 
     public void setPublisher(String publisher) {
-        Preconditions.checkArgument(publisher != null && !publisher.isEmpty()
-                , Constants.getValidationMessage("publisher"));
+        Preconditions.checkArgument(Strings.isNullOrEmpty(publisher)
+                , Constants.getNullOrEmptyValidationMessage("publisher"));
         this.publisher = publisher;
     }
 
@@ -119,8 +120,8 @@ public class Book {
     }
 
     public void setYear(String year) {
-        Preconditions.checkArgument(year != null && !year.isEmpty()
-                , Constants.getValidationMessage("year"));
+        Preconditions.checkArgument(Strings.isNullOrEmpty(year)
+                , Constants.getNullOrEmptyValidationMessage("year"));
         this.year = year;
     }
 
@@ -130,7 +131,7 @@ public class Book {
 
     public void setPages(int pages) {
         Preconditions.checkArgument(pages > 0
-                , "The number of pages must be greather than 0");
+                , Constants.getNumberValidationMessage("pages"));
         this.pages = pages;
     }
 
@@ -139,8 +140,8 @@ public class Book {
     }
 
     public void setIsbn(String isbn) {
-        Preconditions.checkArgument(isbn != null && !isbn.isEmpty()
-                , Constants.getValidationMessage("isbn"));
+        Preconditions.checkArgument(Strings.isNullOrEmpty(isbn)
+                , Constants.getNullOrEmptyValidationMessage("isbn"));
         this.isbn = isbn;
     }
 
