@@ -56,7 +56,7 @@ public class User {
     }
 
     public void setUsername(String username) {
-        Preconditions.checkArgument(Strings.isNullOrEmpty(username)
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(username)
                 , Constants.getNullOrEmptyValidationMessage("username"));
         this.username = username;
     }
@@ -66,7 +66,7 @@ public class User {
     }
 
     public void setName(String name) {
-        Preconditions.checkArgument(Strings.isNullOrEmpty(name)
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(name)
                 , Constants.getNullOrEmptyValidationMessage("name"));
         this.name = name;
     }
