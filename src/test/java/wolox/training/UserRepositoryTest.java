@@ -91,7 +91,7 @@ public class UserRepositoryTest {
         userRepository.save(userTest);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void whenCreateWithoutBirthdateThenThrowIllegalArgumentException(){
         userTest.setBirthdate(null);
         userRepository.save(userTest);
