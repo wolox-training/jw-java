@@ -51,8 +51,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format(Constants.FORMAT_MESSSAGE_USER_NOT_FOUND,id)));
+                .orElseThrow(() -> new UserNotFoundException(id));
         userRepository.deleteById(id);
     }
 
@@ -62,8 +61,7 @@ public class UserController {
             throw new UserIdMismatchException();
         }
         userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format(Constants.FORMAT_MESSSAGE_USER_NOT_FOUND,id)));
+                .orElseThrow(() -> new UserNotFoundException(id));
         return userRepository.save(user);
     }
 
