@@ -19,7 +19,6 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
-    @NotNull
     private String genre;
 
     @NotNull
