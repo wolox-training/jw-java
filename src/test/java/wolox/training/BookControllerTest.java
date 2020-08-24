@@ -1,9 +1,5 @@
 package wolox.training;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import java.nio.charset.Charset;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,9 +15,11 @@ import org.springframework.web.util.NestedServletException;
 import wolox.training.controllers.BookController;
 import wolox.training.exceptions.BookIdMismatchException;
 import wolox.training.exceptions.BookNotFoundException;
+import wolox.training.factories.BookFactory;
 import wolox.training.models.Book;
 import wolox.training.repositories.BookRepository;
 import wolox.training.utils.Constants;
+import wolox.training.utils.Util;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(BookController.class)
@@ -35,18 +33,12 @@ public class BookControllerTest {
 
     private Book testBook;
 
+    String requestJson;
+
     @Before
     public void setUp(){
-        testBook = new Book();
-        testBook.setGenre("Fantasy");
-        testBook.setAuthor("Juan Camilo");
-        testBook.setImage("image.jpg");
-        testBook.setTitle("Libro test");
-        testBook.setSubtitle("test");
-        testBook.setPublisher("Tesstpublisher");
-        testBook.setPages(100);
-        testBook.setYear("2020");
-        testBook.setIsbn("12345678");
+        testBook = BookFactory.build();
+        requestJson = Util.objectToJsonString(testBook);
     }
 
     @Test(expected = BookNotFoundException.class)
@@ -65,11 +57,6 @@ public class BookControllerTest {
     @Test
     public void whenPostThenReturnCreated() throws Exception {
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson=ow.writeValueAsString(testBook);
-
         mockMvc.perform(MockMvcRequestBuilders.post("/api/books/")
                 .contentType(Constants.APPLICATION_JSON_UTF8)
                 .content(requestJson))
@@ -81,10 +68,6 @@ public class BookControllerTest {
     @Test(expected =  BookNotFoundException.class)
     public void whenDeleteWithUnknownIdThenReturnException() throws Throwable {
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            String requestJson=ow.writeValueAsString(testBook);
 
             mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/99")
                     .contentType(Constants.APPLICATION_JSON_UTF8)
@@ -99,10 +82,6 @@ public class BookControllerTest {
     @Test(expected =  BookIdMismatchException.class)
     public void whenUpdateWithUnknownIdThenReturnException() throws Throwable {
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-            String requestJson=ow.writeValueAsString(testBook);
 
             mockMvc.perform(MockMvcRequestBuilders.put("/api/books/99")
                     .contentType(Constants.APPLICATION_JSON_UTF8)
