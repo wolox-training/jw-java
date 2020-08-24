@@ -1,41 +1,138 @@
 package wolox.training;
 
 import java.util.Optional;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
+import javax.validation.constraints.AssertTrue;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import wolox.training.models.Book;
 import wolox.training.repositories.BookRepository;
 
+@RunWith(SpringRunner.class)
 @DataJpaTest
-@AutoConfigureTestDatabase(replace= Replace.NONE)
+@AutoConfigureTestDatabase(replace = Replace.NONE)
 public class BookRepositoryTest {
 
+    @Autowired
     private BookRepository bookRepository;
 
+    private Book testBook;
+    private Book testSaveBook;
+
+
+    @Before
+    public void setUp(){
+        testBook = new Book();
+        testBook.setGenre("Fantasy");
+        testBook.setAuthor("Juan Camilo");
+        testBook.setImage("image.jpg");
+        testBook.setTitle("Libro test");
+        testBook.setSubtitle("test");
+        testBook.setPublisher("Tesstpublisher");
+        testBook.setPages(100);
+        testBook.setYear("2020");
+        testBook.setIsbn("12345678");
+
+        testSaveBook = new Book();
+        testSaveBook.setGenre("Action");
+        testSaveBook.setAuthor("Nauj Olimac");
+        testSaveBook.setImage("image1.jpg");
+        testSaveBook.setTitle("Test Save");
+        testSaveBook.setSubtitle("test2");
+        testSaveBook.setPublisher("PubCol");
+        testSaveBook.setPages(99);
+        testSaveBook.setYear("1980");
+        testSaveBook.setIsbn("0000000001");
+        testSaveBook = bookRepository.save(testSaveBook);
+    }
+
     @Test
-    public void whenFindById_ThenReturnBook(){
+    public void whenCreateBookThenReturnBook(){
         //given
-        Book book = new Book();
-        book.setGenre("Fantasy");
-        book.setAuthor("Juan Camilo");
-        book.setImage("image.jpg");
-        book.setTitle("Libro test");
-        book.setSubtitle("test");
-        book.setPublisher("Tesstpublisher");
-        book.setPages(100);
-        book.setYear("2020");
-        book.setIsbn("12345678");
-
-        Book bookSaved = bookRepository.save(book);
-
-        Optional<Book> bookFound = bookRepository.findById(bookSaved.getId());
-
-        Assertions.assertThat(bookFound).isPresent();
+        Book bookSaved;
 
 
+        //when
+        bookSaved = bookRepository.save(testBook);
+
+        //then
+        Assertions.assertTrue(bookSaved != null);
+        Assertions.assertEquals(testBook.getAuthor(),bookSaved.getAuthor());
+        Assertions.assertEquals(testBook.getGenre(),bookSaved.getGenre());
+        Assertions.assertEquals(testBook.getIsbn(),bookSaved.getIsbn());
+    }
+
+    @Test
+    public void whenFindByIdThenReturnBook(){
+        //given
+        Book bookFound;
+
+
+        //when
+        bookFound = bookRepository.findById(testSaveBook.getId()).orElseGet(null);
+
+        //then
+        Assertions.assertTrue(bookFound != null);
+        Assertions.assertEquals(testSaveBook.getAuthor(),bookFound.getAuthor());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenCreateWithoutGenreThenThrowIllegalArgumentException(){
+        testBook.setGenre(null);
+        bookRepository.save(testBook);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenCreateWithoutAuthorThenThrowIllegalArgumentException(){
+        testBook.setAuthor(null);
+        bookRepository.save(testBook);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenCreateWithoutImageThenThrowIllegalArgumentException(){
+        testBook.setImage(null);
+        bookRepository.save(testBook);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenCreateWithoutTitleThenThrowIllegalArgumentException(){
+        testBook.setTitle(null);
+        bookRepository.save(testBook);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenCreateWithoutSubtitleThenThrowIllegalArgumentException(){
+        testBook.setSubtitle(null);
+        bookRepository.save(testBook);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenCreateWithoutPublisherThenThrowIllegalArgumentException(){
+        testBook.setPublisher(null);
+        bookRepository.save(testBook);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenCreateWithoutYearThenThrowIllegalArgumentException(){
+        testBook.setYear(null);
+        bookRepository.save(testBook);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenCreateWithoutIsbn_thenThrowIllegalArgumentException(){
+        testBook.setIsbn(null);
+        bookRepository.save(testBook);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenCreateWithNegativePages_thenThrowIllegalArgumentException(){
+        testBook.setPages(-18);
+        bookRepository.save(testBook);
     }
 }

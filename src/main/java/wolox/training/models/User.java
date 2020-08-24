@@ -72,7 +72,7 @@ public class User {
     }
 
     public void setBirthdate(LocalDate birthdate) {
-        Preconditions.checkNotNull(birthdate
+        Preconditions.checkArgument(birthdate != null
                 , "Birthdate cannot be null");
         this.birthdate = birthdate;
     }
