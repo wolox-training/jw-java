@@ -3,6 +3,7 @@ package wolox.training;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -83,19 +84,18 @@ public class UserRepositoryTest {
     @Test
     public void whenFindByBirthdateBetweenAndNameContainingIgnoreCaseThenReturnUser(){
         //given
-        User userFound;
-
+        List<User> usersFound;
 
         //when
-        userFound = userRepository.findByBirthdateBetweenAndNameContainingIgnoreCase(
+        usersFound = userRepository.findByBirthdateBetweenAndNameContainingIgnoreCase(
                 userSaveTest.getBirthdate().minus(1, ChronoUnit.MONTHS),
                 userSaveTest.getBirthdate().plus(1, ChronoUnit.MONTHS),
                 "user"
                 ).orElseGet(null);
 
         //then
-        Assertions.assertNotNull(userFound);
-        Assertions.assertEquals(userSaveTest.getUsername(),userSaveTest.getUsername());
+        Assertions.assertNotNull(usersFound);
+        Assertions.assertTrue(usersFound.size() > 0);
     }
 
     @Test(expected = IllegalArgumentException.class)

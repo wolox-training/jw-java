@@ -1,5 +1,6 @@
 package wolox.training;
 
+import java.util.List;
 import java.util.Optional;
 import javax.validation.constraints.AssertTrue;
 import org.junit.Before;
@@ -67,17 +68,15 @@ public class BookRepositoryTest {
     @Test
     public void whenFindByPublisherGenreAndYearThenReturnBook(){
         //given
-        Book bookFound;
+        List<Book> booksFound;
 
 
         //when
-        bookFound = bookRepository.findByPublisherAndGenreAndYear(testSaveBook.getPublisher(),
+        booksFound = bookRepository.findByPublisherAndGenreAndYear(testSaveBook.getPublisher(),
                 testSaveBook.getGenre(), testSaveBook.getYear()).orElseGet(null);
         //then
-        Assertions.assertNotNull(bookFound);
-        Assertions.assertEquals(testSaveBook.getPublisher(),bookFound.getPublisher());
-        Assertions.assertEquals(testSaveBook.getGenre(),bookFound.getGenre());
-        Assertions.assertEquals(testSaveBook.getYear(),bookFound.getYear());
+        Assertions.assertNotNull(booksFound);
+        Assertions.assertTrue(booksFound.size() > 0);
     }
 
     @Test(expected = IllegalArgumentException.class)
