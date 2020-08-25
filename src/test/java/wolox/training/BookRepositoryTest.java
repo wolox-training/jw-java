@@ -64,6 +64,22 @@ public class BookRepositoryTest {
         Assertions.assertEquals(testSaveBook.getAuthor(),bookFound.getAuthor());
     }
 
+    @Test
+    public void whenFindByPublisherGenreAndYearThenReturnBook(){
+        //given
+        Book bookFound;
+
+
+        //when
+        bookFound = bookRepository.findByPublisherAndGenreAndYear(testSaveBook.getPublisher(),
+                testSaveBook.getGenre(), testSaveBook.getYear()).orElseGet(null);
+        //then
+        Assertions.assertNotNull(bookFound);
+        Assertions.assertEquals(testSaveBook.getPublisher(),bookFound.getPublisher());
+        Assertions.assertEquals(testSaveBook.getGenre(),bookFound.getGenre());
+        Assertions.assertEquals(testSaveBook.getYear(),bookFound.getYear());
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void whenCreateWithoutGenreThenThrowIllegalArgumentException(){
         testBook.setGenre(null);

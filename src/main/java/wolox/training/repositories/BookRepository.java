@@ -11,4 +11,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     public Optional<Book> findFirstByAuthorIgnoreCase(String author);
 
     public Optional<Book> findByIsbn(String isbn);
+
+    public Optional<Book> findByPublisherAndGenreAndYear(String publisher, String genre, String year);
 }
