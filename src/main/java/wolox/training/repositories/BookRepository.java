@@ -2,6 +2,7 @@ package wolox.training.repositories;
 
 import java.util.List;
 import java.util.Optional;
+import javax.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -24,4 +25,26 @@ public interface BookRepository extends CrudRepository<Book, Long> {
             + " AND (:year is null or b.year = :year)")
     public Optional<List<Book>> findByPublisherGenreAndYearCustom(@Param("publisher") String publisher,
             @Param("genre") String genre, @Param("year") String year);
+
+    @Query("SELECT b "
+            + " FROM Book b "
+            + " WHERE (:genre = '' OR :genre is null OR b.genre = :genre)"
+            + " AND (:author = '' OR :author is null OR b.author = :author)"
+            + " AND (:image = '' OR :image is null OR b.image = :image)"
+            + " AND (:title = '' OR :title is null OR b.title = :title)"
+            + " AND (:subtitle = '' OR :subtitle is null OR b.subtitle = :subtitle)"
+            + " AND (:publisher = '' OR :publisher is null OR b.publisher = :publisher)"
+            + " AND (:year = '' OR :year is null OR b.year = :year)"
+            + " AND (:pages is null OR CAST(:pages as int) <= 0 OR CAST(b.pages as int) = :pages)"
+            + " AND (:isbn = '' OR :isbn is null OR b.isbn = :isbn)"
+            + " AND ("
+            + " ((:startYear is null OR :startYear = '') OR CAST(b.year as int) >= CAST(:startYear as int) )"
+            + " AND ((:endYear is null OR :endYear = '') OR b.year <= :endYear ))")
+    public Optional<List<Book>> findByAllFields(@Param("genre") String genre,
+            @Param("author") String author, @Param("image") String image,
+            @Param("title") String title, @Param("subtitle") String subtitle,
+            @Param("publisher") String publisher, @Param("year") String year,
+            @Param("pages") Integer pages, @Param("isbn") String isbn,
+            @Param("startYear") String startYear, @Param("endYear") String endYear);
+
 }

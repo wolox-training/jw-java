@@ -27,17 +27,7 @@ public class BookService {
     }
 
     public Book getBookModelFromDTO(BookDTO bookDTO){
-        Book book = new Book();
-        book.setPages(bookDTO.getNumber_of_pages());
-        book.setIsbn(bookDTO.getIsbn());
-        book.setPublisher(bookDTO.getPublishers().get(0).getName());
-        book.setTitle(bookDTO.getTitle());
-        book.setYear(bookDTO.getPublish_date());
-        book.setSubtitle(bookDTO.getSubtitle());
-        book.setAuthor(bookDTO.getAuthors().get(0).getName());
-        book.setImage(bookDTO.getImage().getUrl());
-        book.setGenre(bookDTO.getTitle());
-
+        Book book = new Book(bookDTO);
         return book;
     }
 }

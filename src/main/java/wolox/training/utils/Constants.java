@@ -18,7 +18,7 @@ public class Constants {
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset
             .forName("utf8"));
 
-    public static final String URL_OPENLIBRARY_FORMAT = "https://opelnlibrary.org/api/books?bibkeys=ISBN:%s&format=json&jscmd=data";
+    public static final String URL_OPENLIBRARY_FORMAT = "https://openlibrary.org/api/books?bibkeys=ISBN:%s&format=json&jscmd=data";
 
 
     public static String getNullOrEmptyValidationMessage(String field){

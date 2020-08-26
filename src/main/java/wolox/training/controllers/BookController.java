@@ -2,6 +2,8 @@ package wolox.training.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -35,8 +38,21 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping
-    public Iterable findAll() {
-        return bookRepository.findAll();
+    public List<Book> findAll(@RequestParam(required = false, defaultValue = "") String genre,
+            @RequestParam(required = false, defaultValue = "") String author,
+            @RequestParam(required = false, defaultValue = "") String image,
+            @RequestParam(required = false, defaultValue = "") String title,
+            @RequestParam(required = false, defaultValue = "") String subtitle,
+            @RequestParam(required = false, defaultValue = "") String publisher,
+            @RequestParam(required = false, defaultValue = "") String year,
+            @RequestParam(required = false, defaultValue = "") Integer pages,
+            @RequestParam(required = false, defaultValue = "") String isbn,
+            @RequestParam(required = false, defaultValue = "") String startYear,
+            @RequestParam(required = false, defaultValue = "") String endYear) {
+
+        return bookRepository.findByAllFields(genre, author, image, title, subtitle, publisher,
+                year, pages, isbn, startYear, endYear).orElse(new ArrayList<Book>());
+
     }
 
     @GetMapping("/{id}")

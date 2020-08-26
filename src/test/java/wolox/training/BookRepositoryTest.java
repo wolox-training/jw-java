@@ -92,6 +92,20 @@ public class BookRepositoryTest {
         Assertions.assertTrue(booksFound.size() > 0);
     }
 
+    @Test
+    public void whenFindByAllFieldsExcludeSomeoneThenReturnBook(){
+        //given
+        List<Book> booksFound;
+
+        //when
+        booksFound = bookRepository.findByAllFields(testSaveBook.getGenre(),null,null,
+                testSaveBook.getTitle(),null,testSaveBook.getPublisher(),null,
+                null,null, "1996", "1997").orElseGet(null);
+        //then
+        Assertions.assertNotNull(booksFound);
+        Assertions.assertTrue(booksFound.size() > 0);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void whenCreateWithoutGenreThenThrowIllegalArgumentException(){
         testBook.setGenre(null);
