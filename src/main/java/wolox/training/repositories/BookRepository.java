@@ -37,11 +37,9 @@ public interface BookRepository extends CrudRepository<Book, Long> {
             + " AND (:year = '' OR :year is null OR b.year = :year)"
             + " AND (:pages is null OR CAST(:pages as int) <= 0 OR CAST(b.pages as int) = :pages)"
             + " AND (:isbn = '' OR :isbn is null OR b.isbn = :isbn)"
-            + " AND ((:startYear = '' AND :endYear = '') "
-            + " AND (:startYear is null AND :endYear is null) "
-            + " AND (CAST(b.year as int) BETWEEN CAST(:startYear as int) AND CAST(:endYear as int))"
-            + " AND (:startYear is null AND :startYear = '' AND b.year >= :startYear )"
-            + " AND (:endYear is null AND :endYear = '' AND b.year <= :endYear ))")
+            + " AND ("
+            + " ((:startYear is null OR :startYear = '') OR CAST(b.year as int) >= CAST(:startYear as int) )"
+            + " AND ((:endYear is null OR :endYear = '') OR b.year <= :endYear ))")
     public Optional<List<Book>> findByAllFields(@Param("genre") String genre,
             @Param("author") String author, @Param("image") String image,
             @Param("title") String title, @Param("subtitle") String subtitle,
