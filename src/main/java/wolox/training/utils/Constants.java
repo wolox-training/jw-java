@@ -1,9 +1,13 @@
 package wolox.training.utils;
 
 import java.nio.charset.Charset;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 
 public class Constants {
+
+    @Value("${use.wiremock}")
+    private static int useWiremock;
 
     public static String FORMAT_MESSSAGE_BOOK_NOT_FOUND = "The book with id : %d, not found";
     public static String MESSSAGE_BOOK_NOT_FOUND = "The book can not be found";
@@ -18,7 +22,8 @@ public class Constants {
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset
             .forName("utf8"));
 
-    public static final String URL_OPENLIBRARY_FORMAT = "https://openlibrary.org/api/books?bibkeys=ISBN:%s&format=json&jscmd=data";
+    private static final String URL_OPENLIBRARY_FORMAT = "https://openlibrary.org/api/books?bibkeys=ISBN:%s&format=json&jscmd=data";
+    private static final String URL_OPENLIBRARY_WIREMOCK = "http://localhost:8080/openlibrary";
 
 
     public static String getNullOrEmptyValidationMessage(String field){
@@ -38,7 +43,11 @@ public class Constants {
     }
 
     public static String getUrlOpenlibraryISBNParam(String isbn){
-        return String.format(URL_OPENLIBRARY_FORMAT,isbn);
+        if(useWiremock == 1) {
+            return String.format(URL_OPENLIBRARY_WIREMOCK);
+        }else{
+            return String.format(URL_OPENLIBRARY_FORMAT, isbn);
+        }
     }
 
 }
