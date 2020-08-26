@@ -12,9 +12,11 @@ public class BookDTO {
 
     private List<AuthorDTO> publishers;
 
-    private String publish_date;
+    @JsonProperty("publish_date")
+    private String publishDate;
 
-    private int number_of_pages;
+    @JsonProperty("number_of_pages")
+    private int numberOfPages;
 
     private List<AuthorDTO> authors;
 
@@ -45,20 +47,20 @@ public class BookDTO {
         this.subtitle = subtitle;
     }
 
-    public String getPublish_date() {
-        return publish_date;
+    public String getPublishDate() {
+        return publishDate;
     }
 
-    public void setPublish_date(String publish_date) {
-        this.publish_date = publish_date;
+    public void setPublishDate(String publishDate) {
+        this.publishDate = publishDate;
     }
 
-    public int getNumber_of_pages() {
-        return number_of_pages;
+    public int getNumberOfPages() {
+        return numberOfPages;
     }
 
-    public void setNumber_of_pages(int number_of_pages) {
-        this.number_of_pages = number_of_pages;
+    public void setNumberOfPages(int numberOfPages) {
+        this.numberOfPages = numberOfPages;
     }
 
     public List<AuthorDTO> getPublishers() {
