@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 import wolox.training.factories.BookFactory;
 import wolox.training.models.Book;
@@ -32,6 +35,7 @@ public class BookRepositoryTest {
     public void setUp(){
         testBook = BookFactory.build();
         testSaveBook = BookFactory.build();
+        testSaveBook.setGenre("zzzz");
         testSaveBook = bookRepository.save(testSaveBook);
     }
 
@@ -93,7 +97,7 @@ public class BookRepositoryTest {
     }
 
     @Test
-    public void whenFindByAllFieldsExcludeSomeoneThenReturnBook(){
+    public void whenFindByAllFieldsExcludeSomeoneThenReturnListOfBooks(){
         //given
         List<Book> booksFound;
 
@@ -104,6 +108,41 @@ public class BookRepositoryTest {
         //then
         Assertions.assertNotNull(booksFound);
         Assertions.assertTrue(booksFound.size() > 0);
+    }
+
+    @Test
+    public void whenFindByAllFieldsPagingThenReturnListOfBooks(){
+        //given
+        List<Book> booksFound;
+        final int SIZE = 1;
+        Pageable pageable = PageRequest.of(0, SIZE);
+
+        //when
+        booksFound = bookRepository.findByAllFieldsPaging(null,null,null,
+               null,null,null,null,
+                null,null, null, null,pageable).orElseGet(null);
+        //then
+        Assertions.assertNotNull(booksFound);
+        Assertions.assertTrue(booksFound.size() == SIZE);
+    }
+
+    @Test
+    public void whenFindByAllFieldsPagingSortThenReturnListOfBooksSorted(){
+        //given
+        List<Book> booksFound;
+        final int SIZE = 10;
+        Pageable pageable = PageRequest.of(0, SIZE, Sort.by("genre").descending());
+
+        //when
+        booksFound = bookRepository.findByAllFieldsPaging(null,null,null,
+                null,null,null,null,
+                null,null, null, null,pageable).orElseGet(null);
+        System.out.println(booksFound.size());
+        //then
+        Assertions.assertNotNull(booksFound);
+        Assertions.assertTrue(booksFound.size() > 0);
+        Assertions.assertTrue(booksFound.get(0).getGenre().equals("zzzz"));
+
     }
 
     @Test(expected = IllegalArgumentException.class)

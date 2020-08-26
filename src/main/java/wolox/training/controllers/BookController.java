@@ -48,10 +48,14 @@ public class BookController {
             @RequestParam(required = false, defaultValue = "") Integer pages,
             @RequestParam(required = false, defaultValue = "") String isbn,
             @RequestParam(required = false, defaultValue = "") String startYear,
-            @RequestParam(required = false, defaultValue = "") String endYear) {
+            @RequestParam(required = false, defaultValue = "") String endYear,
+            @RequestParam(required = false, defaultValue = "0") Integer page,
+            @RequestParam(required = false, defaultValue = "100") Integer size,
+            @RequestParam(required = false, defaultValue = "id") String sortBy,
+            @RequestParam(required = false, defaultValue = "asc") String order) {
 
-        return bookRepository.findByAllFields(genre, author, image, title, subtitle, publisher,
-                year, pages, isbn, startYear, endYear).orElse(new ArrayList<Book>());
+        return bookService.findByAllFieldsPaging(genre, author, image, title, subtitle, publisher,
+                year, pages, isbn, startYear, endYear, page, size, sortBy, order);
 
     }
 
