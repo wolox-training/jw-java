@@ -100,7 +100,7 @@ public class BookRepositoryTest {
         //when
         booksFound = bookRepository.findByAllFields(testSaveBook.getGenre(),null,null,
                 testSaveBook.getTitle(),null,testSaveBook.getPublisher(),null,
-                null,null).orElseGet(null);
+                null,null, "1996", "1997").orElseGet(null);
         //then
         Assertions.assertNotNull(booksFound);
         Assertions.assertTrue(booksFound.size() > 0);
