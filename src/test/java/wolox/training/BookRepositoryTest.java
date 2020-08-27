@@ -188,14 +188,19 @@ public class BookRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void whenCreateWithoutIsbn_thenThrowIllegalArgumentException(){
+    public void whenCreateWithoutIsbnThenThrowIllegalArgumentException(){
         testBook.setIsbn(null);
         bookRepository.save(testBook);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void whenCreateWithNegativePages_thenThrowIllegalArgumentException(){
+    public void whenCreateWithNegativePagesThenThrowIllegalArgumentException(){
         testBook.setPages(-18);
         bookRepository.save(testBook);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenSendNullObjectThenThrowsException(){
+        Book book = new Book(null);
     }
 }
