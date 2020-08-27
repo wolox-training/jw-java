@@ -47,8 +47,7 @@ public class BookController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         bookRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format(Constants.FORMAT_MESSSAGE_BOOK_NOT_FOUND,id)));
+                .orElseThrow(() -> new BookNotFoundException(id));
         bookRepository.deleteById(id);
     }
 
@@ -58,8 +57,7 @@ public class BookController {
             throw new BookIdMismatchException();
         }
         bookRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format(Constants.FORMAT_MESSSAGE_BOOK_NOT_FOUND,id)));
+                .orElseThrow(() -> new BookNotFoundException(id));
         return bookRepository.save(book);
     }
 }
