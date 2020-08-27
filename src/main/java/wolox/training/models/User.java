@@ -13,30 +13,32 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import lombok.Getter;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 import wolox.training.exceptions.BookAlreadyOwnedException;
 import wolox.training.utils.Constants;
 
 @Entity
 @Table(name = "users")
-public class User {
+public @Data class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Getter private long id;
+    @Setter(AccessLevel.NONE) private long id;
 
     @NotNull
-    @Getter private String username;
+    @Setter(AccessLevel.NONE) private String username;
 
     @NotNull
-    @Getter private String name;
+    @Setter(AccessLevel.NONE) private String name;
 
     @NotNull
-    @Getter private LocalDate birthdate;
+    @Setter(AccessLevel.NONE) private LocalDate birthdate;
 
     @NotNull
     @ManyToMany(cascade = CascadeType.ALL)
-    @Getter private List<Book> books;
+    @Setter(AccessLevel.NONE) private List<Book> books;
 
     public User() {
         books = new ArrayList<>();

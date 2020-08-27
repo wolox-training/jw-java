@@ -10,49 +10,51 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
-import lombok.Getter;
+import lombok.AccessLevel;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 import wolox.training.models.DTO.BookDTO;
 import wolox.training.utils.Constants;
 
 @Entity
 @NoArgsConstructor
-public class Book {
+public @Data class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Getter private long id;
+    @Setter(AccessLevel.NONE) private long id;
 
-    @Getter private String genre;
-
-    @NotNull
-    @Getter private String author;
+    @Setter(AccessLevel.NONE) private String genre;
 
     @NotNull
-    @Getter private String image;
+    @Setter(AccessLevel.NONE) private String author;
 
     @NotNull
-    @Getter private String title;
+    @Setter(AccessLevel.NONE) private String image;
 
     @NotNull
-    @Getter private String subtitle;
+    @Setter(AccessLevel.NONE) private String title;
 
     @NotNull
-    @Getter private String publisher;
+    @Setter(AccessLevel.NONE) private String subtitle;
 
     @NotNull
-    @Getter private String year;
+    @Setter(AccessLevel.NONE) private String publisher;
 
     @NotNull
-    @Getter private int pages;
+    @Setter(AccessLevel.NONE) private String year;
 
     @NotNull
-    @Getter private String isbn;
+    @Setter(AccessLevel.NONE) private int pages;
+
+    @NotNull
+    @Setter(AccessLevel.NONE) private String isbn;
 
     @ManyToMany(mappedBy = "books")
     @JsonIgnore
-    @Getter private List<User> users;
+    @Setter(AccessLevel.NONE) private List<User> users;
 
     public Book(@NonNull BookDTO bookDTO){
         this.pages = bookDTO.getNumberOfPages();
