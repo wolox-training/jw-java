@@ -1,5 +1,8 @@
 package wolox.training.utils;
 
+import java.nio.charset.Charset;
+import org.springframework.http.MediaType;
+
 public class Constants {
 
     public static String FORMAT_MESSSAGE_BOOK_NOT_FOUND = "The book with id : %d, not found";
@@ -11,6 +14,9 @@ public class Constants {
     public static String FORMAT_MESSSAGE_USER_NOT_FOUND = "The user with id : %d, not found";
     public static String MESSSAGE_USER_NOT_FOUND = "The user can not be found";
     public static String MESSSAGE_USER_ID_MISSMATCH = "The id value of user is not the same of the parameter";
+
+    public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset
+            .forName("utf8"));
 
 
     public static String getNullOrEmptyValidationMessage(String field){
