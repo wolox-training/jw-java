@@ -1,9 +1,11 @@
 package wolox.training;
 
+import com.google.common.collect.Iterables;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -17,8 +19,10 @@ import wolox.training.exceptions.BookAlreadyOwnedException;
 import wolox.training.factories.BookFactory;
 import wolox.training.factories.UserFactory;
 import wolox.training.models.Book;
+import wolox.training.models.Student;
 import wolox.training.models.User;
 import wolox.training.repositories.BookRepository;
+import wolox.training.repositories.StudentRepository;
 import wolox.training.repositories.UserRepository;
 
 @RunWith(SpringRunner.class)
@@ -126,4 +130,5 @@ public class UserRepositoryTest {
     public void whenAddBookWithExistingBookThenThrowBookAlreadyOwnedException(){
         userTest.addBook(testBook);
     }
+
 }

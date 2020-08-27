@@ -7,8 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import wolox.training.models.User;
 
-@Repository
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends UserRepositoryBase<User> {
 
     public Optional<User> findFirstByUsername(String username);
     public Optional<List<User>> findByBirthdateBetweenAndNameContainingIgnoreCase(LocalDate startDate,
