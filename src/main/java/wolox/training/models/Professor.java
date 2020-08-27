@@ -1,5 +1,12 @@
 package wolox.training.models;
 
-public class Professor {
+import javax.persistence.Entity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Entity
+@NoArgsConstructor
+public class Professor extends User {
+    @Getter @Setter private String subject;
 }

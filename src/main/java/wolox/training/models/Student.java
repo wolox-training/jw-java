@@ -1,5 +1,12 @@
 package wolox.training.models;
 
-public class Student {
+import javax.persistence.Entity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Entity
+@NoArgsConstructor
+public class Student extends User{
+    @Getter @Setter private String year;
 }
