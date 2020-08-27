@@ -22,6 +22,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile(group: 'org.postgresql', name: 'postgresql', version: '42.0.0')
 	compile group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
+	compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
 
 
 }

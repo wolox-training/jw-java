@@ -1,5 +1,7 @@
 package wolox.training.models;
 
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import wolox.training.exceptions.BookAlreadyOwnedException;
+import wolox.training.utils.Constants;
 
 @Entity
 @Table(name = "users")
@@ -50,6 +53,8 @@ public class User {
     }
 
     public void setUsername(String username) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(username)
+                , Constants.getNullOrEmptyValidationMessage("username"));
         this.username = username;
     }
 
@@ -58,6 +63,8 @@ public class User {
     }
 
     public void setName(String name) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(name)
+                , Constants.getNullOrEmptyValidationMessage("name"));
         this.name = name;
     }
 
@@ -66,6 +73,8 @@ public class User {
     }
 
     public void setBirthdate(LocalDate birthdate) {
+        Preconditions.checkNotNull(birthdate
+                , Constants.getNotNullalidationMessage("bitrhdate"));
         this.birthdate = birthdate;
     }
 
@@ -74,9 +83,16 @@ public class User {
     }
 
     public void setBooks(List<Book> books) {
+        Preconditions.checkNotNull(books
+                , Constants.getEmptyListValidationMessage("books"));
         this.books = books;
     }
 
+    /**
+     * Add book to user
+     * @param book
+     * @throws BookAlreadyOwnedException
+     */
     public void addBook(Book book){
         if(!books.contains(book)){
             books.add(book);
@@ -85,6 +101,10 @@ public class User {
         }
     }
 
+    /**
+     * Remove book from user
+     * @param book
+     */
     public void removeBook(Book book){
         books.remove(book);
     }
