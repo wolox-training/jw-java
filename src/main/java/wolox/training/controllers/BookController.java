@@ -1,8 +1,11 @@
 package wolox.training.controllers;
 
-import java.util.List;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import java.net.UnknownHostException;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +20,7 @@ import wolox.training.exceptions.BookIdMismatchException;
 import wolox.training.exceptions.BookNotFoundException;
 import wolox.training.models.Book;
 import wolox.training.repositories.BookRepository;
+import wolox.training.services.BookService;
 import wolox.training.utils.Constants;
 
 @RestController
@@ -26,6 +30,9 @@ public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private BookService bookService;
 
     @GetMapping
     public Iterable findAll() {
@@ -59,5 +66,19 @@ public class BookController {
         bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
         return bookRepository.save(book);
+    }
+
+    @GetMapping("/isbn/{isbn}")
+    public ResponseEntity<Book> findOne(@PathVariable String isbn) {
+       Optional<Book> bookOptional = bookRepository.findByIsbn(isbn);
+        try {
+            return bookOptional.isPresent() ?
+                    ResponseEntity.status(HttpStatus.OK).body(bookOptional.get())
+                    : ResponseEntity.status(HttpStatus.CREATED).body(bookService.findByIsbn(isbn)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                            Constants.MESSSAGE_BOOK_NOT_FOUND)));
+        } catch (Exception e) {
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 }

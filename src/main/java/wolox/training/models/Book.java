@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+import wolox.training.models.DTO.BookDTO;
 import wolox.training.utils.Constants;
 
 @Entity
@@ -19,7 +20,6 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
-    @NotNull
     private String genre;
 
     @NotNull
@@ -51,6 +51,18 @@ public class Book {
     private List<User> users;
 
     public Book() {
+    }
+
+    public Book(BookDTO bookDTO){
+        this.pages = bookDTO.getNumberOfPages();
+        this.isbn = bookDTO.getIsbn();
+        this.publisher = bookDTO.getPublishers().get(0).getName();
+        this.title = bookDTO.getTitle();
+        this.year = bookDTO.getPublishDate();
+        this.subtitle = bookDTO.getSubtitle();
+        this.author = bookDTO.getAuthors().get(0).getName();
+        this.image = bookDTO.getImage().getUrl();
+        this.genre = bookDTO.getTitle();
     }
 
     public long getId() {

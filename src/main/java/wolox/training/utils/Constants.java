@@ -18,6 +18,8 @@ public class Constants {
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset
             .forName("utf8"));
 
+    public static final String URL_OPENLIBRARY_FORMAT = "https://openlibrary.org/api/books?bibkeys=ISBN:%s&format=json&jscmd=data";
+
 
     public static String getNullOrEmptyValidationMessage(String field){
         return String.format("The field %s cannot be null or empty",field);
@@ -35,6 +37,8 @@ public class Constants {
         return String.format("The list of %s must have at least one item",field);
     }
 
-
+    public static String getUrlOpenlibraryISBNParam(String isbn){
+        return String.format(URL_OPENLIBRARY_FORMAT,isbn);
+    }
 
 }
