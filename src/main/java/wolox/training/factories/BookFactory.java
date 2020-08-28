@@ -16,7 +16,7 @@ public class BookFactory {
         book.setPublisher("Publisher-"+random.nextInt());
         book.setPages(100);
         book.setYear("2020");
-        book.setIsbn("12345678"+random.nextInt());
+        book.setIsbn("12345678-"+random.nextInt());
 
         return book;
     }

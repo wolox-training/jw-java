@@ -3,6 +3,7 @@ package wolox.training;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Null;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -104,7 +105,7 @@ public class BookRepositoryTest {
         //when
         booksFound = bookRepository.findByAllFields(testSaveBook.getGenre(),null,null,
                 testSaveBook.getTitle(),null,testSaveBook.getPublisher(),null,
-                null,null, "1996", "1997").orElseGet(null);
+                null,null, null, null).orElseGet(null);
         //then
         Assertions.assertNotNull(booksFound);
         Assertions.assertTrue(booksFound.size() > 0);
@@ -145,57 +146,56 @@ public class BookRepositoryTest {
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenCreateWithoutGenreThenThrowIllegalArgumentException(){
-        testBook.setGenre(null);
-        bookRepository.save(testBook);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void whenCreateWithoutAuthorThenThrowIllegalArgumentException(){
+    @Test(expected = NullPointerException.class)
+    public void whenCreateWithoutAuthorThenThrowException(){
         testBook.setAuthor(null);
         bookRepository.save(testBook);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenCreateWithoutImageThenThrowIllegalArgumentException(){
+    @Test(expected = NullPointerException.class)
+    public void whenCreateWithoutImageThenThrowException(){
         testBook.setImage(null);
         bookRepository.save(testBook);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenCreateWithoutTitleThenThrowIllegalArgumentException(){
+    @Test(expected = NullPointerException.class)
+    public void whenCreateWithoutTitleThenThrowException(){
         testBook.setTitle(null);
         bookRepository.save(testBook);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenCreateWithoutSubtitleThenThrowIllegalArgumentException(){
+    @Test(expected = NullPointerException.class)
+    public void whenCreateWithoutSubtitleThenThrowException(){
         testBook.setSubtitle(null);
         bookRepository.save(testBook);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenCreateWithoutPublisherThenThrowIllegalArgumentException(){
+    @Test(expected = NullPointerException.class)
+    public void whenCreateWithoutPublisherThenThrowException(){
         testBook.setPublisher(null);
         bookRepository.save(testBook);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenCreateWithoutYearThenThrowIllegalArgumentException(){
+    @Test(expected = NullPointerException.class)
+    public void whenCreateWithoutYearThenThrowException(){
         testBook.setYear(null);
         bookRepository.save(testBook);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void whenCreateWithoutIsbn_thenThrowIllegalArgumentException(){
+    @Test(expected = NullPointerException.class)
+    public void whenCreateWithoutIsbnThenThrowException(){
         testBook.setIsbn(null);
         bookRepository.save(testBook);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void whenCreateWithNegativePages_thenThrowIllegalArgumentException(){
+    public void whenCreateWithNegativePagesThenThrowException(){
         testBook.setPages(-18);
         bookRepository.save(testBook);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenSendNullObjectThenThrowsException(){
+        Book book = new Book(null);
     }
 }

@@ -1,91 +1,44 @@
 package wolox.training.models;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NonNull;
+import lombok.Setter;
 import wolox.training.exceptions.BookAlreadyOwnedException;
-import wolox.training.utils.Constants;
 
 @Entity
 @Table(name = "users")
-public class User {
+public @Data class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    @Setter(AccessLevel.NONE) private long id;
 
-    @NotNull
+    @NonNull
     private String username;
 
-    @NotNull
+    @NonNull
     private String name;
 
-    @NotNull
+    @NonNull
     private LocalDate birthdate;
 
-    @NotNull
+    @NonNull
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Book> books;
 
     public User() {
         books = new ArrayList<>();
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        Preconditions.checkArgument(!Strings.isNullOrEmpty(username)
-                , Constants.getNullOrEmptyValidationMessage("username"));
-        this.username = username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        Preconditions.checkArgument(!Strings.isNullOrEmpty(name)
-                , Constants.getNullOrEmptyValidationMessage("name"));
-        this.name = name;
-    }
-
-    public LocalDate getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(LocalDate birthdate) {
-        Preconditions.checkNotNull(birthdate
-                , Constants.getNotNullalidationMessage("bitrhdate"));
-        this.birthdate = birthdate;
-    }
-
-    public List<Book> getBooks() {
-        return Collections.unmodifiableList(books);
-    }
-
-    public void setBooks(List<Book> books) {
-        Preconditions.checkNotNull(books
-                , Constants.getEmptyListValidationMessage("books"));
-        this.books = books;
     }
 
     /**
