@@ -98,13 +98,13 @@ public class UserRepositoryTest {
         Assertions.assertTrue(usersFound.size() > 0);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void whenCreateWithoutUsernameThenThrowIllegalArgumentException(){
         userTest.setUsername(null);
         userRepository.save(userTest);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void whenCreateWithoutNameThenThrowIllegalArgumentException(){
         userTest.setName(null);
         userRepository.save(userTest);
